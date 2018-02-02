@@ -1,8 +1,17 @@
 const http = require('http');
+const port = 3000;
+const fs = require('fs');
+
 http.createServer((request, response) => {
 
-response.writeHead(200, {"Content-Type" : "text/html; charset=UTF-8"})
-response.write('<style>h1 {font-family:arial; font-size: 3em;}</style>')
-response.end()
+	let provinces = fs.readFile('province.json', 'utf8', (err, data) => {
+	  
+		if (err) return console.error(err);
+		return JSON.parse(data);
+	});
 
-}).listen(3000)
+	console.log(provinces);
+
+	response.end();
+
+}).listen(port)
